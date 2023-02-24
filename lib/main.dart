@@ -100,6 +100,7 @@ class MyHomePage extends StatelessWidget {
                             tr.data.toString(),
                             style: const TextStyle(
                               fontSize: 12,
+                              color: Colors.grey,
                             ),
                           ),
                         ],
