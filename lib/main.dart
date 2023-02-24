@@ -44,8 +44,8 @@ class MyHomePage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: const [
-          Card(
+        children: [
+          const Card(
             elevation: 5,
             color: Colors.blueGrey,
             child: Text(
@@ -53,13 +53,62 @@ class MyHomePage extends StatelessWidget {
               style: TextStyle(fontSize: 20, color: Colors.white),
             ),
           ),
-          Card(
+          const Card(
             elevation: 5,
             color: Colors.blueGrey,
             child: Text(
               "Lista de Transações",
               style: TextStyle(fontSize: 20, color: Colors.white),
             ),
+          ),
+          Column(
+            children: [
+              ..._transacoes.map((tr) {
+                return Card(
+                  child: Row(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(
+                          right: 12,
+                        ),
+                        padding: const EdgeInsets.all(12),
+                        decoration: const BoxDecoration(
+                            color: Colors.blueGrey,
+                            border: BorderDirectional(
+                                end: BorderSide(
+                              width: 2,
+                            ))),
+                        child: Text(
+                          tr.valor.toString(),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            tr.titulo,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            tr.data.toString(),
+                            style: const TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                );
+              }).toList(),
+            ],
           ),
         ],
       ),
