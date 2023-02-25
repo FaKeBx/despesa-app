@@ -1,6 +1,5 @@
-import 'package:despesas/models/transacao.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import './components/transaction_user.dart';
 
 void main() {
   runApp(const DespesasApp());
@@ -11,107 +10,43 @@ class DespesasApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatelessWidget {
-  MyHomePage({super.key});
-
-  final _transacoes = [
-    Transacao(
-      id: "id1",
-      titulo: "Tenis Nike",
-      valor: 499.99,
-      data: DateTime.now(),
-    ),
-    Transacao(
-      id: "id2",
-      titulo: "Tenis Adidas",
-      valor: 299.99,
-      data: DateTime.now(),
-    ),
-  ];
+  const MyHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.pink.shade600,
         title: const Text("DespApp"),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const Card(
+          Card(
             elevation: 5,
-            color: Colors.blueGrey,
-            child: Text(
-              "Gráficos",
-              style: TextStyle(fontSize: 20, color: Colors.white),
+            color: Colors.pink.shade400,
+            child: const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                "GRÁFICOS",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
             ),
           ),
-          const Card(
-            elevation: 5,
-            color: Colors.blueGrey,
-            child: Text(
-              "Lista de Transações",
-              style: TextStyle(fontSize: 20, color: Colors.white),
-            ),
-          ),
-          Column(
-            children: [
-              ..._transacoes.map((tr) {
-                return Card(
-                  child: Row(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(
-                          right: 12,
-                        ),
-                        padding: const EdgeInsets.all(12),
-                        decoration: const BoxDecoration(
-                            color: Colors.blueGrey,
-                            border: BorderDirectional(
-                                end: BorderSide(
-                              width: 2,
-                            ))),
-                        child: Text(
-                          "R\$${tr.valor}",
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            tr.titulo,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            DateFormat("d MMM y").format(tr.data),
-                            style: const TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                );
-              }).toList(),
-            ],
-          ),
+          const TransactionUser(),
         ],
       ),
     );
