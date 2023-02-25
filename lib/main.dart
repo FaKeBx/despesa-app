@@ -26,28 +26,30 @@ class MyHomePage extends StatelessWidget {
         backgroundColor: Colors.pink.shade600,
         title: const Text("DespApp"),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Card(
-            elevation: 5,
-            color: Colors.pink.shade400,
-            child: const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                "GRÁFICOS",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Card(
+              elevation: 5,
+              color: Colors.pink.shade400,
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  "GRÁFICOS",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
-          ),
-          const TransactionUser(),
-        ],
+            const TransactionUser(),
+          ],
+        ),
       ),
     );
   }
