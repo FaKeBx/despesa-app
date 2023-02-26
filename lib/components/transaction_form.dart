@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 
-class TransactionForm extends StatelessWidget {
-  final titleCrontroller = TextEditingController();
-  final valueController = TextEditingController();
-
+class TransactionForm extends StatefulWidget {
   final void Function(String, double) onSubmit;
 
-  TransactionForm(this.onSubmit, {super.key});
+  const TransactionForm(this.onSubmit, {super.key});
+
+  @override
+  State<TransactionForm> createState() => _TransactionFormState();
+}
+
+class _TransactionFormState extends State<TransactionForm> {
+  final titleCrontroller = TextEditingController();
+
+  final valueController = TextEditingController();
 
   _submitForm() {
     final title = titleCrontroller.text;
@@ -16,7 +22,7 @@ class TransactionForm extends StatelessWidget {
       return;
     }
 
-    onSubmit(title, value);
+    widget.onSubmit(title, value);
   }
 
   @override
@@ -47,7 +53,7 @@ class TransactionForm extends StatelessWidget {
               "Nova transação",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Colors.pink.shade600,
+                color: Theme.of(context).colorScheme.primary,
               ),
             ),
           )
