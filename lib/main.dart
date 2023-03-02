@@ -16,6 +16,7 @@ class DespesasApp extends StatelessWidget {
     return MaterialApp(
       home: const MyHomePage(),
       theme: ThemeData(
+        fontFamily: "Quicksand",
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: Colors.pink.shade600,
           secondary: Colors.pink.shade400,
@@ -34,19 +35,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _transactions = [
-    Transaction(
-      id: "id1",
-      title: "Tenis Nike",
-      value: 499.99,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: "id2",
-      title: "Tenis Adidas",
-      value: 299.99,
-      date: DateTime.now(),
-    ),
+  final List<Transaction> _transactions = [
+    // Transaction(
+    //   id: "id1",
+    //   title: "Tenis Nike",
+    //   value: 499.99,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: "id2",
+    //   title: "Tenis Adidas",
+    //   value: 299.99,
+    //   date: DateTime.now(),
+    // ),
   ];
 
   _addTransaction(String title, double value) {
@@ -77,8 +78,18 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        title: const Text(
-          "DespApp",
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: const [
+            Text(
+              "DespApp",
+              style: TextStyle(
+                fontSize: 24,
+                fontFamily: "Quicksand",
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
         ),
         actions: [
           IconButton(
@@ -97,16 +108,28 @@ class _MyHomePageState extends State<MyHomePage> {
             Card(
               elevation: 5,
               color: Theme.of(context).colorScheme.secondary,
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  "GRÁFICOS",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Text(
+                      "GRÁFICOS",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 8.0),
+                      child: Icon(
+                        Icons.auto_graph_outlined,
+                        color: Colors.amber,
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),

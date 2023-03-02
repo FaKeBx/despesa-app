@@ -10,61 +10,88 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 300,
-      child: ListView.builder(
-        itemCount: transactions.length,
-        itemBuilder: (context, index) {
-          final tr = transactions[index];
-          return Card(
-            child: Row(
+      height: 500,
+      child: transactions.isEmpty
+          ? Column(
               children: [
-                Container(
-                  margin: const EdgeInsets.only(
-                    right: 12,
-                  ),
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.secondary,
-                    border: BorderDirectional(
-                      end: BorderSide(
-                        width: 2,
-                        color: Colors.pinkAccent.shade700,
-                      ),
-                    ),
-                  ),
-                  child: Text(
-                    "R\$${tr.value}",
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                      color: Colors.white,
-                    ),
+                const SizedBox(
+                  height: 100,
+                ),
+                Text(
+                  "Nenhuma Transação Cadastrada! 😭",
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
+                    fontSize: 18,
+                    fontFamily: "Quicksand",
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tr.title,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
-                    ),
-                    Text(
-                      DateFormat("d MMM y").format(tr.date),
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey.shade600,
-                      ),
-                    ),
-                  ],
+                const SizedBox(
+                  height: 25,
+                ),
+                SizedBox(
+                  height: 200,
+                  child: Image.asset(
+                    'assets/images/waiting.png',
+                    fit: BoxFit.cover,
+                  ),
                 )
               ],
+            )
+          : ListView.builder(
+              itemCount: transactions.length,
+              itemBuilder: (context, index) {
+                final tr = transactions[index];
+                return Card(
+                  child: Row(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(
+                          right: 12,
+                        ),
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.secondary,
+                          border: BorderDirectional(
+                            end: BorderSide(
+                              width: 2,
+                              color: Colors.pinkAccent.shade700,
+                            ),
+                          ),
+                        ),
+                        child: Text(
+                          "R\$${tr.value}",
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            tr.title,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).colorScheme.secondary,
+                            ),
+                          ),
+                          Text(
+                            DateFormat("d MMM y").format(tr.date),
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey.shade600,
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                );
+              },
             ),
-          );
-        },
-      ),
     );
   }
 }
