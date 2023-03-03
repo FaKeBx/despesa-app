@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:despesas/components/chart.dart';
 import 'package:flutter/material.dart';
 import '../models/transaction.dart';
 import '../components/transaction_list.dart';
@@ -40,28 +41,52 @@ class _MyHomePageState extends State<MyHomePage> {
     //   id: "id1",
     //   title: "Tenis Nike",
     //   value: 499.99,
-    //   date: DateTime.now(),
+    //   date: DateTime.now().subtract(const Duration(days: 3)),
     // ),
     // Transaction(
     //   id: "id2",
+    //   title: "Tenis Puma",
+    //   value: 599.99,
+    //   date: DateTime.now().subtract(const Duration(days: 33)),
+    // ),
+    // Transaction(
+    //   id: "id3",
     //   title: "Tenis Adidas",
     //   value: 299.99,
-    //   date: DateTime.now(),
+    //   date: DateTime.now().subtract(const Duration(days: 4)),
+    // ),
+    // Transaction(
+    //   id: "id4",
+    //   title: "Tenis Balmain",
+    //   value: 990.99,
+    //   date: DateTime.now().subtract(const Duration(days: 5)),
     // ),
   ];
 
-  _addTransaction(String title, double value) {
+  List<Transaction> get _recentTransactions {
+    return _transactions.where((tr) {
+      return tr.date.isAfter(const Duration(days: 7) as DateTime);
+    }).toList();
+  }
+
+  _addTransaction(String title, double value, DateTime date) {
     final newTransaction = Transaction(
         id: Random().nextDouble().toString(),
         title: title,
         value: value,
-        date: DateTime.now());
+        date: date);
 
     setState(() {
       _transactions.add(newTransaction);
     });
 
     Navigator.of(context).pop();
+  }
+
+  _removeTransaction(String id) {
+    setState(() {
+      _transactions.removeWhere((tr) => tr.id == id);
+    });
   }
 
   _openTransactionFormModal(BuildContext context) {
@@ -76,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      // backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -133,7 +158,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-            TransactionList(_transactions),
+            Chart(_transactions),
+            TransactionList(_transactions, _removeTransaction),
           ],
         ),
       ),

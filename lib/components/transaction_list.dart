@@ -4,8 +4,9 @@ import 'package:intl/intl.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
+  final void Function(String) onRemove;
 
-  const TransactionList(this.transactions, {super.key});
+  const TransactionList(this.transactions, this.onRemove, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class TransactionList extends StatelessWidget {
           ? Column(
               children: [
                 const SizedBox(
-                  height: 100,
+                  height: 40,
                 ),
                 Text(
                   "Nenhuma Transação Cadastrada! 😭",
@@ -43,7 +44,9 @@ class TransactionList extends StatelessWidget {
               itemBuilder: (context, index) {
                 final tr = transactions[index];
                 return Card(
+                  elevation: 5,
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
                         margin: const EdgeInsets.only(
@@ -59,12 +62,19 @@ class TransactionList extends StatelessWidget {
                             ),
                           ),
                         ),
-                        child: Text(
-                          "R\$${tr.value}",
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                            color: Colors.white,
+                        child: SizedBox(
+                          width: 60,
+                          height: 30,
+                          child: FittedBox(
+                            fit: BoxFit.none,
+                            child: Text(
+                              "R\$${tr.value}",
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                                color: Colors.white,
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -86,6 +96,22 @@ class TransactionList extends StatelessWidget {
                             ),
                           ),
                         ],
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 12),
+                          child: IconButton(
+                            alignment: Alignment.centerRight,
+                            onPressed: () {
+                              onRemove(tr.id);
+                            },
+                            icon: Icon(
+                              Icons.delete,
+                              color: Colors.amber.shade700,
+                            ),
+                            iconSize: 24,
+                          ),
+                        ),
                       )
                     ],
                   ),
